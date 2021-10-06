@@ -85,6 +85,14 @@ public class CastleRiskNode extends SingleOutcomeNode {
         }
 
         /**
+         * Castle Status
+         */
+        @Attribute(order = 250)
+        default Status status() {
+            return Status.SUCCEEDED;
+        }
+
+        /**
          * Allow listed headers
          */
         @Attribute(order = 300)
@@ -183,18 +191,18 @@ public class CastleRiskNode extends SingleOutcomeNode {
             logger.error("Unable to add user email to the request", e);
         }
         try {
-            CastleResponse response = castle.client().risk(ImmutableMap.builder()
-                                                                       .put(Castle.KEY_EVENT, config.event().toString())
-                                                                       .put(Castle.KEY_CONTEXT,
-                                                                            ImmutableMap.builder().put(Castle.KEY_IP,
-                                                                                                       castleContext
-                                                                                                               .getIp())
-                                                                                        .put(Castle.KEY_HEADERS,
-                                                                                             castleContext.getHeaders())
-                                                                                        .build())
-                                                                       .put(Castle.KEY_USER, userBuild.build())
-                                                                       .put(Castle.KEY_REQUEST_TOKEN, request_token)
-                                                                       .build());
+            CastleResponse response = castle.client().risk(
+                    ImmutableMap.builder()
+                            .put(Castle.KEY_EVENT, config.event().toString())
+                            .put(Castle.KEY_STATUS, config.status().toString())
+                            .put(Castle.KEY_CONTEXT,
+                                    ImmutableMap.builder()
+                                            .put(Castle.KEY_IP, castleContext.getIp())
+                                            .put(Castle.KEY_HEADERS, castleContext.getHeaders())
+                                            .build())
+                            .put(Castle.KEY_USER, userBuild.build())
+                            .put(Castle.KEY_REQUEST_TOKEN, request_token)
+                            .build());
             logger.debug("Called Castle Risk API");
             return goToNext().replaceSharedState(context.sharedState.put(CASTLE_RESPONSE, JsonValue
                     .json(gson.fromJson(response.json().getAsJsonObject(), Map.class)))).build();
@@ -227,6 +235,21 @@ public class CastleRiskNode extends SingleOutcomeNode {
         @Override
         public String toString() {
             return event;
+        }
+    }
+
+    public enum Status {
+        SUCCEEDED("$succeeded"),
+        FAILED("$failed"),
+        ATTEMPTED("$attempted");
+
+        private final String status;
+
+        Status(String status) { this.status = status; }
+
+        @Override
+        public String toString() {
+            return status;
         }
     }
 
