@@ -20,16 +20,14 @@ package org.forgerock.openam.auth.nodes.castle;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.assistedinject.Assisted;
 import io.castle.client.model.CastleResponse;
-import org.forgerock.openam.auth.node.api.Node;
-import org.forgerock.openam.auth.node.api.NodeProcessException;
-import org.forgerock.openam.auth.node.api.SingleOutcomeNode;
+import org.forgerock.openam.auth.node.api.*;
 import org.forgerock.openam.core.CoreWrapper;
 
 import javax.inject.Inject;
 
 @Node.Metadata(outcomeProvider = SingleOutcomeNode.OutcomeProvider.class,
-        configClass = CastleRiskNode.Config.class, tags = {"risk"})
-public class CastleRiskNode extends CastleRequestNode {
+        configClass = CastleLogNode.Config.class, tags = {"risk"})
+public class CastleLogNode extends CastleRequestNode {
     public interface Config extends CastleRequestNode.Config {
     }
 
@@ -41,13 +39,19 @@ public class CastleRiskNode extends CastleRequestNode {
      * @throws NodeProcessException If the configuration was not valid.
      */
     @Inject
-    public CastleRiskNode(@Assisted Config config, CoreWrapper coreWrapper)
+    public CastleLogNode(@Assisted Config config, CoreWrapper coreWrapper)
             throws NodeProcessException {
         super(config, coreWrapper);
     }
 
     @Override
     protected CastleResponse callCastle(ImmutableMap<Object, Object> payload) {
-        return castle.client().risk(payload);
+        return castle.client().log(payload);
     }
+
+    @Override
+    protected Action nextAction(TreeContext context, CastleResponse response) {
+        return goToNext().build();
+    }
+
 }

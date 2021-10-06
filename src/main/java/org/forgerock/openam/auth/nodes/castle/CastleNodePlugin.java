@@ -68,10 +68,14 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
      */
     @Override
     protected Map<String, Iterable<? extends Class<? extends Node>>> getNodesByVersion() {
-        return Collections.singletonMap(CastleNodePlugin.currentVersion,
-                                        Arrays.asList(CastleProfilerNode.class, CastleRiskNode.class,
-                                                      CastleActionNode.class, CastleScoreNode.class,
-                                                      CastleSignalNode.class, CastleApproveDeviceNode.class));
+        return Collections.singletonMap(
+                CastleNodePlugin.currentVersion,
+                Arrays.asList(
+                        CastleProfilerNode.class, CastleLogNode.class, CastleRiskNode.class,
+                        CastleActionNode.class, CastleScoreNode.class,
+                        CastleSignalNode.class, CastleApproveDeviceNode.class
+                )
+        );
     }
 
     /**
