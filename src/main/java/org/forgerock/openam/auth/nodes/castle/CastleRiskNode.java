@@ -20,6 +20,7 @@ package org.forgerock.openam.auth.nodes.castle;
 import static org.forgerock.openam.auth.node.api.SharedStateConstants.REALM;
 import static org.forgerock.openam.auth.nodes.castle.CastleHelper.CASTLE_RESPONSE;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +94,7 @@ public class CastleRiskNode extends SingleOutcomeNode {
          * Allow listed headers
          */
         @Attribute(order = 400)
-        List<String> denyListedHeaders();
+        default List<String> denyListedHeaders() { return Arrays.asList("cookie"); }
 
         /**
          * Timeout
