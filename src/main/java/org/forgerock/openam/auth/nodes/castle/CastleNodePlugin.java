@@ -72,7 +72,7 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
                 CastleNodePlugin.currentVersion,
                 Arrays.asList(
                         CastleProfilerNode.class, CastleLogNode.class, CastleRiskNode.class,
-                        CastleActionNode.class, CastleScoreNode.class,
+                        CastleFilterNode.class, CastleActionNode.class, CastleScoreNode.class,
                         CastleSignalNode.class, CastleApproveDeviceNode.class
                 )
         );
