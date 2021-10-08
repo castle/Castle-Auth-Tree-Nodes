@@ -50,7 +50,7 @@ public class CastleProfilerNode extends SingleOutcomeNode {
 
     private final Logger logger = LoggerFactory.getLogger("amAuth");
     private final Config config;
-    private final CastleConfigurationNode.CastleService castleService;
+    private final CastleService castleService;
 
     /**
      * Configuration for the node.
@@ -71,7 +71,7 @@ public class CastleProfilerNode extends SingleOutcomeNode {
             throws NodeProcessException {
         this.config = config;
         try {
-            this.castleService = serviceRegistry.getRealmSingleton(CastleConfigurationNode.CastleService.class, realm).get();
+            this.castleService = serviceRegistry.getRealmSingleton(CastleService.class, realm).get();
         } catch (SSOException | SMSException | NoSuchElementException e) {
             throw new NodeProcessException("Cannot initialize Castle Node because the Castle Service is not configured");
         }

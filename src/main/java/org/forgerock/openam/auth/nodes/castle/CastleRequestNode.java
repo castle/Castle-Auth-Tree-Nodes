@@ -103,8 +103,8 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
         this.serviceRegistry = serviceRegistry;
         this.realm = realm;
         try {
-            CastleConfigurationNode.CastleService castleService =
-                    serviceRegistry.getRealmSingleton(CastleConfigurationNode.CastleService.class, realm).get();
+            CastleService castleService =
+                    serviceRegistry.getRealmSingleton(CastleService.class, realm).get();
 
             castle = Castle.initialize(
                     Castle.configurationBuilder()
