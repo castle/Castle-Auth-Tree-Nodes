@@ -20,10 +20,13 @@ package org.forgerock.openam.auth.nodes.castle;
 import static org.forgerock.openam.auth.node.api.Action.send;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
 import javax.security.auth.callback.TextOutputCallback;
 
+import com.iplanet.sso.SSOException;
+import com.sun.identity.sm.SMSException;
 import org.forgerock.json.JsonValue;
 import org.forgerock.openam.annotations.sm.Attribute;
 import org.forgerock.openam.auth.node.api.Action;
@@ -32,6 +35,8 @@ import org.forgerock.openam.auth.node.api.NodeProcessException;
 import org.forgerock.openam.auth.node.api.OutputState;
 import org.forgerock.openam.auth.node.api.SingleOutcomeNode;
 import org.forgerock.openam.auth.node.api.TreeContext;
+import org.forgerock.openam.core.realms.Realm;
+import org.forgerock.openam.sm.AnnotatedServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,26 +50,12 @@ public class CastleProfilerNode extends SingleOutcomeNode {
 
     private final Logger logger = LoggerFactory.getLogger("amAuth");
     private final Config config;
+    private final CastleConfigurationNode.CastleService castleService;
 
     /**
      * Configuration for the node.
      */
     public interface Config {
-
-        /**
-         * The Castle App ID
-         */
-        @Attribute(order = 100)
-        String appId();
-
-        /**
-         * Castle CDN
-         */
-        @Attribute(order = 200)
-        default String uri() {
-            return "https://d2t77mnxyo7adj.cloudfront.net/v1/c.js";
-        }
-
     }
 
 
@@ -76,8 +67,14 @@ public class CastleProfilerNode extends SingleOutcomeNode {
      * @throws NodeProcessException If the configuration was not valid.
      */
     @Inject
-    public CastleProfilerNode(@Assisted Config config) throws NodeProcessException {
+    public CastleProfilerNode(@Assisted Config config, AnnotatedServiceRegistry serviceRegistry, @Assisted Realm realm)
+            throws NodeProcessException {
         this.config = config;
+        try {
+            this.castleService = serviceRegistry.getRealmSingleton(CastleConfigurationNode.CastleService.class, realm).get();
+        } catch (SSOException | SMSException | NoSuchElementException e) {
+            throw new NodeProcessException("Cannot initialize Castle Node because the Castle Service is not configured");
+        }
     }
 
     @Override
@@ -88,12 +85,12 @@ public class CastleProfilerNode extends SingleOutcomeNode {
                                                                                 .isPresent()) {
             logger.debug("Request Token present");
             return goToNext().replaceSharedState(
-                    sharedState.put(CastleHelper.APP_ID, config.appId())
+                    sharedState.put(CastleHelper.APP_ID, castleService.appId())
                                .put(CastleHelper.REQUEST_TOKEN, context.getCallback(
                                        HiddenValueCallback.class).get().getValue())).build();
         }
 
-        String scriptSrc = String.format("%1$s?%2$s", config.uri(), config.appId());
+        String scriptSrc = String.format("%1$s?%2$s", castleService.uri(), castleService.appId());
 
 
         logger.debug("Sending client side script");

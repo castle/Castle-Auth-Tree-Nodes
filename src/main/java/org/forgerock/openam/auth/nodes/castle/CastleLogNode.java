@@ -22,6 +22,8 @@ import com.google.inject.assistedinject.Assisted;
 import io.castle.client.model.CastleResponse;
 import org.forgerock.openam.auth.node.api.*;
 import org.forgerock.openam.core.CoreWrapper;
+import org.forgerock.openam.core.realms.Realm;
+import org.forgerock.openam.sm.AnnotatedServiceRegistry;
 
 import javax.inject.Inject;
 
@@ -35,13 +37,13 @@ public class CastleLogNode extends CastleRequestNode {
      * Create the node using Guice injection. Just-in-time bindings can be used to obtain instances of other classes
      * from the plugin.
      *
-     * @param config The service config.
      * @throws NodeProcessException If the configuration was not valid.
      */
     @Inject
-    public CastleLogNode(@Assisted Config config, CoreWrapper coreWrapper)
+    public CastleLogNode(@Assisted CastleRequestNode.Config config, CoreWrapper coreWrapper,
+                         AnnotatedServiceRegistry serviceRegistry, @Assisted Realm realm)
             throws NodeProcessException {
-        super(config, coreWrapper);
+        super(config, coreWrapper, serviceRegistry, realm);
     }
 
     @Override
