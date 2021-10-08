@@ -50,7 +50,7 @@ public class CastleFilterNode extends CastleRequestNode {
      * @throws NodeProcessException If the configuration was not valid.
      */
     @Inject
-    public CastleFilterNode(@Assisted CastleRequestNode.Config config, CoreWrapper coreWrapper,
+    public CastleFilterNode(@Assisted CastleFilterNode.Config config, CoreWrapper coreWrapper,
                           AnnotatedServiceRegistry serviceRegistry, @Assisted Realm realm)
             throws NodeProcessException {
         super(config, coreWrapper, serviceRegistry, realm);

@@ -16,10 +16,16 @@
 
 package org.forgerock.openam.auth.nodes.castle;
 
+import java.security.AccessController;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
+import com.iplanet.sso.SSOException;
+import com.iplanet.sso.SSOToken;
+import com.sun.identity.security.AdminTokenAction;
+import com.sun.identity.sm.SMSException;
+import com.sun.identity.sm.ServiceManager;
 import org.forgerock.openam.auth.node.api.AbstractNodeAmPlugin;
 import org.forgerock.openam.auth.node.api.Node;
 import org.forgerock.openam.plugins.PluginException;
@@ -59,6 +65,7 @@ import org.forgerock.openam.plugins.PluginException;
 public class CastleNodePlugin extends AbstractNodeAmPlugin {
 
     static private String currentVersion = "1.0.0";
+    private final Class serviceClass = CastleService.class;
 
     /**
      * Specify the Map of list of node classes that the plugin is providing. These will then be installed and
@@ -86,6 +93,7 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
      */
     @Override
     public void onInstall() throws PluginException {
+        pluginTools.installService(serviceClass);
         super.onInstall();
     }
 
@@ -97,6 +105,7 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
      */
     @Override
     public void onStartup() throws PluginException {
+        pluginTools.startService(serviceClass);
         super.onStartup();
     }
 
@@ -110,7 +119,19 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
      */
     @Override
     public void upgrade(String fromVersion) throws PluginException {
-        super.upgrade(fromVersion);
+        //reinstall the service
+//        SSOToken adminToken = AccessController.doPrivileged(AdminTokenAction.getInstance());
+//        try {
+//            ServiceManager sm = new ServiceManager(adminToken);
+//            if (sm.getServiceNames().contains(serviceClass.getSimpleName())) {
+//                sm.removeService(serviceClass.getSimpleName(),"1.0");
+//            }
+//        } catch (SSOException | SMSException e) {
+//            e.printStackTrace();
+//        }
+//        pluginTools.installService(serviceClass);
+//
+//        super.upgrade(fromVersion);
     }
 
     /**
