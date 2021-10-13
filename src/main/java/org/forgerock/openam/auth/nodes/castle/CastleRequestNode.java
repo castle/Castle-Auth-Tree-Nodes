@@ -19,11 +19,14 @@ package org.forgerock.openam.auth.nodes.castle;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
+import com.iplanet.sso.SSOException;
 import com.sun.identity.idm.AMIdentity;
+import com.sun.identity.idm.IdRepoException;
 import com.sun.identity.idm.IdUtils;
 import io.castle.client.Castle;
 import io.castle.client.internal.backend.CastleBackendProvider;
 import io.castle.client.model.*;
+import org.forgerock.json.JsonPointer;
 import org.forgerock.json.JsonValue;
 import org.forgerock.openam.annotations.sm.Attribute;
 import org.forgerock.openam.auth.node.api.*;
@@ -165,8 +168,9 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
             CastleResponse response = callCastle(payload);
 
             return nextAction(context, response);
-        } catch (Exception e) {
-            logger.error("Failure when calling Castle API", e);
+        } catch(CastleServerErrorException e) {
+            logger.error("Failure when calling Castle API. Code: " + e.getResponseCode() + ". " + e.getClass());
+            logger.error(e.getStackTrace().toString());
             throw new NodeProcessException(e);
         }
     }
@@ -199,12 +203,23 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
                 username);
 
         String realm = context.sharedState.get(REALM).asString();
-        context.universalId.ifPresent(s -> userBuild.put("id", s));
         AMIdentity userIdentity = IdUtils.getIdentity(username, realm, coreWrapper.getUserAliasList(realm));
-        try {
-            userBuild.put(Castle.KEY_EMAIL, userIdentity.getAttribute(config.mailAttribute()).iterator().next());
-        } catch (Exception e) {
-            logger.error("Unable to add user email to the request", e);
+
+        if (userIdentity != null) {
+            try {
+                userBuild.put(Castle.KEY_EMAIL, userIdentity.getAttribute(config.mailAttribute()).iterator().next());
+                // context.universalId is not present in the registration flow, but once an identity is created
+                // we can fetch the universalId from it
+                userBuild.put("id", userIdentity.getUniversalId());
+            } catch (IdRepoException | SSOException e) {
+                logger.error("Unable to add user email to the request", e);
+            }
+        } else {
+            context.universalId.ifPresent(s -> userBuild.put("id", s));
+            // TODO: should this be more configurable?
+            String emailFromParams =
+                    context.sharedState.get(new JsonPointer("/objectAttributes/"+config.mailAttribute())).asString();
+            userBuild.put(Castle.KEY_EMAIL, emailFromParams);
         }
 
         return ImmutableMap.builder()
