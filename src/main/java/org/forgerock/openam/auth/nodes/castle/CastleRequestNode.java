@@ -170,8 +170,6 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
                 username);
 
         String realm = context.sharedState.get(REALM).asString();
-
-
         context.universalId.ifPresent(s -> userBuild.put("id", s));
         AMIdentity userIdentity = IdUtils.getIdentity(username, realm, coreWrapper.getUserAliasList(realm));
         try {

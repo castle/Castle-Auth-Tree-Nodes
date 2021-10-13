@@ -16,11 +16,6 @@
 
 package org.forgerock.openam.auth.nodes.castle;
 
-import java.security.AccessController;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
-
 import com.iplanet.sso.SSOException;
 import com.iplanet.sso.SSOToken;
 import com.sun.identity.security.AdminTokenAction;
@@ -29,6 +24,11 @@ import com.sun.identity.sm.ServiceManager;
 import org.forgerock.openam.auth.node.api.AbstractNodeAmPlugin;
 import org.forgerock.openam.auth.node.api.Node;
 import org.forgerock.openam.plugins.PluginException;
+
+import java.security.AccessController;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Definition of an
@@ -120,18 +120,18 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
     @Override
     public void upgrade(String fromVersion) throws PluginException {
         //reinstall the service
-//        SSOToken adminToken = AccessController.doPrivileged(AdminTokenAction.getInstance());
-//        try {
-//            ServiceManager sm = new ServiceManager(adminToken);
-//            if (sm.getServiceNames().contains(serviceClass.getSimpleName())) {
-//                sm.removeService(serviceClass.getSimpleName(),"1.0");
-//            }
-//        } catch (SSOException | SMSException e) {
-//            e.printStackTrace();
-//        }
-//        pluginTools.installService(serviceClass);
-//
-//        super.upgrade(fromVersion);
+        SSOToken adminToken = AccessController.doPrivileged(AdminTokenAction.getInstance());
+        try {
+            ServiceManager sm = new ServiceManager(adminToken);
+            if (sm.getServiceNames().contains(serviceClass.getSimpleName())) {
+                sm.removeService(serviceClass.getSimpleName(),"1.0");
+            }
+        } catch (SSOException | SMSException e) {
+            e.printStackTrace();
+        }
+        pluginTools.installService(serviceClass);
+
+        super.upgrade(fromVersion);
     }
 
     /**
