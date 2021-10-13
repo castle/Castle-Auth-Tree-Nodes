@@ -42,7 +42,7 @@ public class CastleRiskNode extends CastleRequestNode {
      * @throws NodeProcessException If the configuration was not valid.
      */
     @Inject
-    public CastleRiskNode(@Assisted CastleRequestNode.Config config, CoreWrapper coreWrapper,
+    public CastleRiskNode(@Assisted Config config, CoreWrapper coreWrapper,
                          AnnotatedServiceRegistry serviceRegistry, @Assisted Realm realm)
             throws NodeProcessException {
         super(config, coreWrapper, serviceRegistry, realm);

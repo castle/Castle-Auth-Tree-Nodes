@@ -40,7 +40,7 @@ public class CastleLogNode extends CastleRequestNode {
      * @throws NodeProcessException If the configuration was not valid.
      */
     @Inject
-    public CastleLogNode(@Assisted CastleRequestNode.Config config, CoreWrapper coreWrapper,
+    public CastleLogNode(@Assisted Config config, CoreWrapper coreWrapper,
                          AnnotatedServiceRegistry serviceRegistry, @Assisted Realm realm)
             throws NodeProcessException {
         super(config, coreWrapper, serviceRegistry, realm);
