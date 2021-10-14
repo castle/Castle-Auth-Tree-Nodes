@@ -29,6 +29,12 @@ To deploy these nodes, download the jar from the releases tab on github
 ../web-container/webapps/openam/WEB-INF/lib directory where AM is deployed. Restart the web container to pick up the
 new nodes. The nodes will then appear in the authentication trees components palette.
 
+### Before you begin
+
+1. Create a [Castle account](https://dashboard.castle.io/signup/new)
+2. Once you're signed in, go the the [Dashboard Settings page](https://dashboard.castle.io/settings/general) to configure the Castle Service with the APP ID and API Secret. Please not your Castle environment - you should use the "Sandbox" environment only for non-production use.
+3. We highly suggest you host our JS script yourself, otherwise it might get blocked by ad-blockers.
+
 ### Castle Service
 This plugin provides a realm-specific Castle Service, where you specify common configuration for Castle nodes.
 
@@ -45,6 +51,22 @@ This plugin provides a realm-specific Castle Service, where you specify common c
 
 
 ![CASTLE_SERVICE_1](./images/castle_service.png)
+
+### Quick Start
+
+This repository contains sample trees you can import using [AM Treetool](https://github.com/vscheuber/AM-treetool).
+
+You can batch-import them with this command:
+
+```
+./amtree.sh -h FORGEROCK_URL -u FORGEROCK_ADMIN -p FORGEROCK_ADMIN_PASSWORD -s -r examples/
+```
+
+Alternatively, you can recreate these tools yourself using the ForgeRock tree editor.
+
+Once you configured the Castle Service and you went through a tree that used one of Castle's API,
+you should be able to inspect the requests that were sent to Castle in the [Castle's Debugger](https://dashboard.cas.tl/debug-console/events).
+
 
 ### Castle Profiler Node
 

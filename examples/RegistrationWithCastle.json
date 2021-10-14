@@ -1,0 +1,311 @@
+
+{
+  "origin": "518942c8b649a80a2d095e103d166fbb",
+  "innernodes": {
+    "fa348805-3de6-4826-9102-cfc30c95726c": {
+      "_id": "fa348805-3de6-4826-9102-cfc30c95726c",
+      "validateInput": true,
+      "usernameAttribute": "userName",
+      "_type": {
+        "_id": "ValidatedUsernameNode",
+        "name": "Platform Username",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "e7585722-1537-4c00-b52a-f08f138b1983": {
+      "_id": "e7585722-1537-4c00-b52a-f08f138b1983",
+      "validateInputs": true,
+      "attributesToCollect": [
+        "mail",
+        "sn",
+        "givenName"
+      ],
+      "required": true,
+      "identityAttribute": "userName",
+      "_type": {
+        "_id": "AttributeCollectorNode",
+        "name": "Attribute Collector",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "4e619f4c-8de6-4eb8-af95-c03f795e82e8": {
+      "_id": "4e619f4c-8de6-4eb8-af95-c03f795e82e8",
+      "validateInput": true,
+      "passwordAttribute": "password",
+      "_type": {
+        "_id": "ValidatedPasswordNode",
+        "name": "Platform Password",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "5e866d5d-c12c-411f-9896-144db3515d3d": {
+      "_id": "5e866d5d-c12c-411f-9896-144db3515d3d",
+      "_type": {
+        "_id": "CastleProfilerNode",
+        "name": "Castle Profiler Node",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "aa148fc6-1475-46c7-a947-b91252daf91f": {
+      "_id": "aa148fc6-1475-46c7-a947-b91252daf91f",
+      "_type": {
+        "_id": "AcceptTermsAndConditionsNode",
+        "name": "Accept Terms and Conditions",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    }
+  },
+  "nodes": {
+    "54b15eb0-776d-41b4-9f0e-d4e1d76d238c": {
+      "_id": "54b15eb0-776d-41b4-9f0e-d4e1d76d238c",
+      "_type": {
+        "_id": "CastleActionNode",
+        "name": "Castle Action Node",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "ALLOW",
+          "displayName": "Allow"
+        },
+        {
+          "id": "CHALLENGE",
+          "displayName": "Challenge"
+        },
+        {
+          "id": "DENY",
+          "displayName": "Deny"
+        }
+      ]
+    },
+    "7a3b796f-e58f-4a31-a0af-d7a89d3f16d6": {
+      "_id": "7a3b796f-e58f-4a31-a0af-d7a89d3f16d6",
+      "identityResource": "managed/user",
+      "_type": {
+        "_id": "CreateObjectNode",
+        "name": "Create Object",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "CREATED",
+          "displayName": "Created"
+        },
+        {
+          "id": "FAILURE",
+          "displayName": "Failed"
+        }
+      ]
+    },
+    "96449b07-c4ed-4816-b035-c7deba840b37": {
+      "_id": "96449b07-c4ed-4816-b035-c7deba840b37",
+      "event": "REGISTRATION",
+      "status": "SUCCEEDED",
+      "failOverStrategy": "CHALLENGE",
+      "mailAttribute": "mail",
+      "_type": {
+        "_id": "CastleLogNode",
+        "name": "Castle Log Node",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "cbcbbae3-c4f1-4c18-891b-687b538c52d2": {
+      "_id": "cbcbbae3-c4f1-4c18-891b-687b538c52d2",
+      "nodes": [
+        {
+          "_id": "fa348805-3de6-4826-9102-cfc30c95726c",
+          "nodeType": "ValidatedUsernameNode",
+          "displayName": "Platform Username"
+        },
+        {
+          "_id": "e7585722-1537-4c00-b52a-f08f138b1983",
+          "nodeType": "AttributeCollectorNode",
+          "displayName": "Attribute Collector"
+        },
+        {
+          "_id": "4e619f4c-8de6-4eb8-af95-c03f795e82e8",
+          "nodeType": "ValidatedPasswordNode",
+          "displayName": "Platform Password"
+        },
+        {
+          "_id": "5e866d5d-c12c-411f-9896-144db3515d3d",
+          "nodeType": "CastleProfilerNode",
+          "displayName": "Castle Profiler Node"
+        },
+        {
+          "_id": "aa148fc6-1475-46c7-a947-b91252daf91f",
+          "nodeType": "AcceptTermsAndConditionsNode",
+          "displayName": "Accept Terms and Conditions"
+        }
+      ],
+      "pageDescription": {
+        "en": "Signing up is fast and easy.<br>Already have an account? <a href='#/service/Login'>Sign In</a>"
+      },
+      "pageHeader": {
+        "en": "Sign Up"
+      },
+      "_type": {
+        "_id": "PageNode",
+        "name": "Page Node",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "d2428b30-2b9d-4641-819b-f491a859400a": {
+      "_id": "d2428b30-2b9d-4641-819b-f491a859400a",
+      "identityAttribute": "userName",
+      "_type": {
+        "_id": "IncrementLoginCountNode",
+        "name": "Increment Login Count",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "e969e0f1-3a55-46a1-a89a-268b6f103209": {
+      "_id": "e969e0f1-3a55-46a1-a89a-268b6f103209",
+      "event": "REGISTRATION",
+      "status": "ATTEMPTED",
+      "failOverStrategy": "CHALLENGE",
+      "mailAttribute": "mail",
+      "_type": {
+        "_id": "CastleFilterNode",
+        "name": "Castle Filter Node",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    }
+  },
+  "scripts": {},
+  "emailTemplates": {},
+  "tree": {
+    "_id": "RegistrationWithCastle",
+    "entryNodeId": "cbcbbae3-c4f1-4c18-891b-687b538c52d2",
+    "nodes": {
+      "cbcbbae3-c4f1-4c18-891b-687b538c52d2": {
+        "x": 210,
+        "y": 80,
+        "connections": {
+          "outcome": "e969e0f1-3a55-46a1-a89a-268b6f103209"
+        },
+        "nodeType": "PageNode",
+        "displayName": "Page Node"
+      },
+      "7a3b796f-e58f-4a31-a0af-d7a89d3f16d6": {
+        "x": 662,
+        "y": 8.5,
+        "connections": {
+          "CREATED": "96449b07-c4ed-4816-b035-c7deba840b37",
+          "FAILURE": "e301438c-0bd0-429c-ab0c-66126501069a"
+        },
+        "nodeType": "CreateObjectNode",
+        "displayName": "Create Object"
+      },
+      "d2428b30-2b9d-4641-819b-f491a859400a": {
+        "x": 1121,
+        "y": 39.66666666666667,
+        "connections": {
+          "outcome": "70e691a5-1e33-4ac3-a356-e7b6d60d92e0"
+        },
+        "nodeType": "IncrementLoginCountNode",
+        "displayName": "Increment Login Count"
+      },
+      "96449b07-c4ed-4816-b035-c7deba840b37": {
+        "x": 916,
+        "y": 37.66666666666667,
+        "connections": {
+          "outcome": "d2428b30-2b9d-4641-819b-f491a859400a"
+        },
+        "nodeType": "CastleLogNode",
+        "displayName": "Castle Log Node"
+      },
+      "e969e0f1-3a55-46a1-a89a-268b6f103209": {
+        "x": 412,
+        "y": 194.5,
+        "connections": {
+          "outcome": "54b15eb0-776d-41b4-9f0e-d4e1d76d238c"
+        },
+        "nodeType": "CastleFilterNode",
+        "displayName": "Castle Filter Node"
+      },
+      "54b15eb0-776d-41b4-9f0e-d4e1d76d238c": {
+        "x": 592,
+        "y": 163,
+        "connections": {
+          "DENY": "e301438c-0bd0-429c-ab0c-66126501069a",
+          "ALLOW": "7a3b796f-e58f-4a31-a0af-d7a89d3f16d6",
+          "CHALLENGE": "7a3b796f-e58f-4a31-a0af-d7a89d3f16d6"
+        },
+        "nodeType": "CastleActionNode",
+        "displayName": "Castle Action Node"
+      }
+    },
+    "staticNodes": {
+      "startNode": {
+        "x": 70,
+        "y": 177
+      },
+      "70e691a5-1e33-4ac3-a356-e7b6d60d92e0": {
+        "x": 1343,
+        "y": 37
+      },
+      "e301438c-0bd0-429c-ab0c-66126501069a": {
+        "x": 811,
+        "y": 414.83333333333337
+      }
+    },
+    "description": "Platform Registration Tree",
+    "uiConfig": {},
+    "identityResource": "managed/user"
+  }
+}
