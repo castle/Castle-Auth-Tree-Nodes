@@ -20,12 +20,14 @@ package org.forgerock.openam.auth.nodes.castle;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.assistedinject.Assisted;
 import io.castle.client.model.CastleResponse;
+import org.forgerock.json.JsonValue;
 import org.forgerock.openam.auth.node.api.*;
 import org.forgerock.openam.core.CoreWrapper;
 import org.forgerock.openam.core.realms.Realm;
 import org.forgerock.openam.sm.AnnotatedServiceRegistry;
 
 import javax.inject.Inject;
+import java.util.Map;
 
 @Node.Metadata(outcomeProvider = SingleOutcomeNode.OutcomeProvider.class,
         configClass = CastleLogNode.Config.class, tags = {"risk"})
@@ -52,8 +54,7 @@ public class CastleLogNode extends CastleRequestNode {
     }
 
     @Override
-    protected Action nextAction(TreeContext context, CastleResponse response) {
+    protected Action nextAction(TreeContext context, JsonValue response) {
         return goToNext().build();
     }
-
 }

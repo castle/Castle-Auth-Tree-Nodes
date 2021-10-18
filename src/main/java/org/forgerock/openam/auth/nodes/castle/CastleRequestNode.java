@@ -44,6 +44,8 @@ import static org.forgerock.openam.auth.nodes.castle.CastleHelper.CASTLE_RESPONS
 
 public abstract class CastleRequestNode extends SingleOutcomeNode {
 
+    protected static String FALLBACK_RESPONSE = "{\"risk\":%1$s,\"signals\":{},\"policy\":{\"action\":\"%2$s\",\"id\":\"FALLBACK\",\"revision_id\": \"FALLBACK\",\"name\":\"FALLBACK\",\"device\":{}}";
+
     protected final Logger logger = LoggerFactory.getLogger("amAuth");
     protected final AnnotatedServiceRegistry serviceRegistry;
     protected final Config config;
@@ -135,11 +137,18 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
 
         try {
             logger.debug("Calling Castle API");
-            CastleResponse response = callCastle(payload);
-
+            CastleResponse castleResponse = callCastle(payload);
+            JsonValue response = JsonValue.json(gson.fromJson(castleResponse.json().getAsJsonObject(), Map.class));
             return nextAction(context, response);
-        } catch(CastleServerErrorException e) {
-            logger.error("Failure when calling Castle API. Code: " + e.getResponseCode() + ". " + e.getClass());
+        } catch (CastleServerErrorException e) {
+            logger.warn(
+                    "Failure when calling Castle API. Using the fallback mechanism. Code: "
+                            + e.getResponseCode() + ". " + e.getClass()
+            );
+
+            return nextAction(context, buildFallbackValue());
+        } catch (CastleRuntimeException e) {
+            logger.error("Failure when calling Castle API: " + e.getClass());
             logger.error(e.getStackTrace().toString());
             throw new NodeProcessException(e);
         }
@@ -147,11 +156,30 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
 
     /**
      * Returns a next action based on the current state and the Castle Response.
-     *
      */
-    protected Action nextAction(TreeContext context, CastleResponse response) {
-        return goToNext().replaceSharedState(context.sharedState.put(CASTLE_RESPONSE, JsonValue
-                .json(gson.fromJson(response.json().getAsJsonObject(), Map.class)))).build();
+    protected Action nextAction(TreeContext context, JsonValue response) {
+        return goToNext().replaceSharedState(context.sharedState.put(CASTLE_RESPONSE, response)).build();
+    }
+
+    protected JsonValue buildFallbackValue() {
+        float risk = 0.3f;
+
+        switch (config.failOverStrategy()) {
+            case ALLOW:
+                risk = 0.3f;
+                break;
+            case CHALLENGE:
+                risk = 0.7f;
+                break;
+            case DENY:
+                risk = 0.99f;
+                break;
+        }
+
+        return JsonValue.json(
+                gson.fromJson(
+                        String.format(FALLBACK_RESPONSE, risk, config.failOverStrategy().toString()),
+                        Map.class));
     }
 
     /**
