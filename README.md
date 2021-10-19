@@ -32,7 +32,7 @@ new nodes. The nodes will then appear in the authentication trees components pal
 ### Before you begin
 
 1. Create a [Castle account](https://dashboard.castle.io/signup/new)
-2. Once you're signed in, go the the [Dashboard Settings page](https://dashboard.castle.io/settings/general) to configure the Castle Service with the APP ID and API Secret. Please not your Castle environment - you should use the "Sandbox" environment only for non-production use.
+2. Once you're signed in, go the the [Dashboard Settings page](https://dashboard.castle.io/settings/general) to configure the Castle Service with the APP ID and API Secret. Please note your Castle environment - the "Sandbox" one is only suggested for non-production usage.
 3. We highly suggest you host our JS script yourself, otherwise it might get blocked by ad-blockers.
 
 ### Castle Service
@@ -74,7 +74,9 @@ This node tags the AM login page with the Castle JS to collect information about
 
 ### Castle Risk Node
 
-This node makes a request the [Castle Risk API](https://castle.io/risk-api/) to assess user risk.
+This node makes a request to [Castle Risk API](https://castle.io/risk-api/) to assess user risk.
+
+You can also check our [API Reference](https://reference.castle.io/#operation/risk) for more details on the Risk API.
 
 #### Castle Risk Node Configuration
 
@@ -84,7 +86,9 @@ This node makes a request the [Castle Risk API](https://castle.io/risk-api/) to 
 
 ### Castle Filter Node
 
-This node makes a request the Castle's bot detection [Filter API](https://castle.io/filter-api/) to retrieve a policy decision about an action.
+This node makes a request to Castle's bot detection [Filter API](https://castle.io/filter-api/) to retrieve a policy decision about an action.
+
+You can also check our [API Reference](https://reference.castle.io/#operation/filter) for more details on the Filter API.
 
 #### Castle Filter Node Configuration
 
@@ -94,7 +98,9 @@ This node makes a request the Castle's bot detection [Filter API](https://castle
 
 ### Castle Log Node
 
-This node makes a request the Castle's Log API. This is an async API that provides visibility into the actions your users take.
+This node makes a request to Castle's Log API. This is an async API that provides visibility into the actions your users take.
+
+You can check our [API Reference](https://reference.castle.io/#tag/logging) for more details on the Log API.
 
 #### Castle Log Node Configuration
 
