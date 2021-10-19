@@ -33,7 +33,7 @@ new nodes. The nodes will then appear in the authentication trees components pal
 
 1. Create a [Castle account](https://dashboard.castle.io/signup/new)
 2. Once you're signed in, go the the [Dashboard Settings page](https://dashboard.castle.io/settings/general) to configure the Castle Service with the APP ID and API Secret. Please note your Castle environment - the "Sandbox" one is only suggested for non-production usage.
-3. We highly suggest you host our JS script yourself, otherwise it might get blocked by ad-blockers.
+3. Host our `castle-js` script. See our [NPM package](https://www.npmjs.com/package/@castleio/castle-js) for more details.
 
 ### Castle Service
 This plugin provides a realm-specific Castle Service, where you specify common configuration for Castle nodes.
