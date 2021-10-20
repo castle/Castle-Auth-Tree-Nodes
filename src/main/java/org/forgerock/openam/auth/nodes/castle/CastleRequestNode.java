@@ -44,7 +44,7 @@ import static org.forgerock.openam.auth.nodes.castle.CastleHelper.CASTLE_RESPONS
 
 public abstract class CastleRequestNode extends SingleOutcomeNode {
 
-    protected static String FALLBACK_RESPONSE = "{\"risk\":%1$s,\"signals\":{},\"policy\":{\"action\":\"%2$s\",\"id\":\"FALLBACK\",\"revision_id\": \"FALLBACK\",\"name\":\"FALLBACK\",\"device\":{}}";
+    protected static String FALLBACK_RESPONSE = "{\"risk\":%1$s,\"signals\":{},\"policy\":{\"action\":\"%2$s\",\"id\":\"FALLBACK\",\"revision_id\":\"FALLBACK\",\"name\":\"FALLBACK\"},\"device\":{}}";
 
     protected final Logger logger = LoggerFactory.getLogger("amAuth");
     protected final AnnotatedServiceRegistry serviceRegistry;
@@ -138,7 +138,8 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
         try {
             logger.debug("Calling Castle API");
             CastleResponse castleResponse = callCastle(payload);
-            JsonValue response = JsonValue.json(gson.fromJson(castleResponse.json().getAsJsonObject(), Map.class));
+            JsonValue response = mapCastleResponse(castleResponse);
+
             return nextAction(context, response);
         } catch (CastleServerErrorException e) {
             logger.warn(
@@ -152,6 +153,11 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
             logger.error(e.getStackTrace().toString());
             throw new NodeProcessException(e);
         }
+    }
+
+    /* Maps Castle response to a JsonValue object */
+    protected JsonValue mapCastleResponse(CastleResponse castleResponse) {
+        return JsonValue.json(gson.fromJson(castleResponse.json().getAsJsonObject(), Map.class));
     }
 
     /**
@@ -215,9 +221,12 @@ public abstract class CastleRequestNode extends SingleOutcomeNode {
         } else {
             context.universalId.ifPresent(s -> userBuild.put("id", s));
             // TODO: should this be more configurable?
-            String emailFromParams =
-                    context.sharedState.get(new JsonPointer("/objectAttributes/"+config.mailAttribute())).asString();
-            userBuild.put(Castle.KEY_EMAIL, emailFromParams);
+            JsonValue emailFromParams =
+                    context.sharedState.get(new JsonPointer("/objectAttributes/"+config.mailAttribute()));
+
+            if (emailFromParams != null && emailFromParams.isString()) {
+                userBuild.put(Castle.KEY_EMAIL, emailFromParams.asString());
+            }
         }
 
         return ImmutableMap.builder()

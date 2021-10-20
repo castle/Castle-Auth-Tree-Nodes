@@ -54,6 +54,11 @@ public class CastleLogNode extends CastleRequestNode {
     }
 
     @Override
+    protected JsonValue mapCastleResponse(CastleResponse castleResponse) {
+        return JsonValue.json(null);
+    }
+
+    @Override
     protected Action nextAction(TreeContext context, JsonValue response) {
         return goToNext().build();
     }
