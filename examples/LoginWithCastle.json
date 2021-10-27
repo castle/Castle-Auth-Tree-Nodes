@@ -2,8 +2,8 @@
 {
   "origin": "518942c8b649a80a2d095e103d166fbb",
   "innernodes": {
-    "82da5e3c-9590-4513-8771-c277ef7442bf": {
-      "_id": "82da5e3c-9590-4513-8771-c277ef7442bf",
+    "04eaca28-5cad-44cd-ae48-3465c8d3bf7d": {
+      "_id": "04eaca28-5cad-44cd-ae48-3465c8d3bf7d",
       "validateInput": false,
       "usernameAttribute": "userName",
       "_type": {
@@ -18,8 +18,8 @@
         }
       ]
     },
-    "a6e8e09c-3a06-47c1-af15-c1341f74ba56": {
-      "_id": "a6e8e09c-3a06-47c1-af15-c1341f74ba56",
+    "bc3dc999-d27b-4905-992c-c8e805c0a221": {
+      "_id": "bc3dc999-d27b-4905-992c-c8e805c0a221",
       "validateInput": false,
       "passwordAttribute": "password",
       "_type": {
@@ -34,8 +34,8 @@
         }
       ]
     },
-    "9ec3d411-a567-4759-bfdd-e84cd47f40eb": {
-      "_id": "9ec3d411-a567-4759-bfdd-e84cd47f40eb",
+    "46bbf06b-561a-4b1c-9e06-bdacbdbf78f0": {
+      "_id": "46bbf06b-561a-4b1c-9e06-bdacbdbf78f0",
       "_type": {
         "_id": "CastleProfilerNode",
         "name": "Castle Profiler Node",
@@ -50,32 +50,15 @@
     }
   },
   "nodes": {
-    "06762d65-c4a6-4792-a5a0-49ba3d5180eb": {
-      "_id": "06762d65-c4a6-4792-a5a0-49ba3d5180eb",
+    "58393525-8f33-4afa-b5f4-ee04f7d4a610": {
+      "_id": "58393525-8f33-4afa-b5f4-ee04f7d4a610",
       "event": "LOGIN",
-      "status": "ATTEMPTED",
+      "status": "FAILED",
       "failOverStrategy": "CHALLENGE",
-      "_type": {
-        "_id": "CastleFilterNode",
-        "name": "Castle Filter Node",
-        "collection": true
-      },
-      "_outcomes": [
-        {
-          "id": "outcome",
-          "displayName": "Outcome"
-        }
-      ]
-    },
-    "0ea8170a-b37f-45a3-878c-08c67d2b0688": {
-      "_id": "0ea8170a-b37f-45a3-878c-08c67d2b0688",
-      "event": "LOGIN",
-      "status": "SUCCEEDED",
       "mailAttribute": "mail",
-      "failOverStrategy": "CHALLENGE",
       "_type": {
-        "_id": "CastleRiskNode",
-        "name": "Castle Risk Node",
+        "_id": "CastleLogNode",
+        "name": "Castle Log Node",
         "collection": true
       },
       "_outcomes": [
@@ -85,8 +68,8 @@
         }
       ]
     },
-    "0ec6de49-6820-4068-bc72-2fb34fcef1fb": {
-      "_id": "0ec6de49-6820-4068-bc72-2fb34fcef1fb",
+    "5b4f3810-c051-43a7-b060-31ab6146c806": {
+      "_id": "5b4f3810-c051-43a7-b060-31ab6146c806",
       "_type": {
         "_id": "CastleActionNode",
         "name": "Castle Action Node",
@@ -107,77 +90,21 @@
         }
       ]
     },
-    "261a92e8-93bf-454f-9ef1-996246ecc8e8": {
-      "_id": "261a92e8-93bf-454f-9ef1-996246ecc8e8",
-      "tree": "ProgressiveProfile",
-      "_type": {
-        "_id": "InnerTreeEvaluatorNode",
-        "name": "Inner Tree Evaluator",
-        "collection": true
-      },
-      "_outcomes": [
-        {
-          "id": "true",
-          "displayName": "True"
-        },
-        {
-          "id": "false",
-          "displayName": "False"
-        }
-      ]
-    },
-    "864300a1-6e89-4e7a-9949-8681807251e3": {
-      "_id": "864300a1-6e89-4e7a-9949-8681807251e3",
-      "_type": {
-        "_id": "CastleActionNode",
-        "name": "Castle Action Node",
-        "collection": true
-      },
-      "_outcomes": [
-        {
-          "id": "ALLOW",
-          "displayName": "Allow"
-        },
-        {
-          "id": "CHALLENGE",
-          "displayName": "Challenge"
-        },
-        {
-          "id": "DENY",
-          "displayName": "Deny"
-        }
-      ]
-    },
-    "957a0d5b-a89e-469b-b608-1f0771bb029c": {
-      "_id": "957a0d5b-a89e-469b-b608-1f0771bb029c",
-      "identityAttribute": "userName",
-      "_type": {
-        "_id": "IncrementLoginCountNode",
-        "name": "Increment Login Count",
-        "collection": true
-      },
-      "_outcomes": [
-        {
-          "id": "outcome",
-          "displayName": "Outcome"
-        }
-      ]
-    },
-    "af6e4bb3-d55a-4081-b519-70117be62a6f": {
-      "_id": "af6e4bb3-d55a-4081-b519-70117be62a6f",
+    "738012b5-a06b-42e3-8414-a68c0544f76e": {
+      "_id": "738012b5-a06b-42e3-8414-a68c0544f76e",
       "nodes": [
         {
-          "_id": "82da5e3c-9590-4513-8771-c277ef7442bf",
+          "_id": "04eaca28-5cad-44cd-ae48-3465c8d3bf7d",
           "nodeType": "ValidatedUsernameNode",
           "displayName": "Platform Username"
         },
         {
-          "_id": "a6e8e09c-3a06-47c1-af15-c1341f74ba56",
+          "_id": "bc3dc999-d27b-4905-992c-c8e805c0a221",
           "nodeType": "ValidatedPasswordNode",
           "displayName": "Platform Password"
         },
         {
-          "_id": "9ec3d411-a567-4759-bfdd-e84cd47f40eb",
+          "_id": "46bbf06b-561a-4b1c-9e06-bdacbdbf78f0",
           "nodeType": "CastleProfilerNode",
           "displayName": "Castle Profiler Node"
         }
@@ -200,15 +127,15 @@
         }
       ]
     },
-    "bee0de98-e913-4f84-bc0f-6d928e93b53f": {
-      "_id": "bee0de98-e913-4f84-bc0f-6d928e93b53f",
+    "81cc0208-5692-43a6-a7c0-3d46262257a4": {
+      "_id": "81cc0208-5692-43a6-a7c0-3d46262257a4",
       "event": "LOGIN",
-      "status": "FAILED",
-      "failOverStrategy": "CHALLENGE",
+      "status": "SUCCEEDED",
       "mailAttribute": "mail",
+      "failOverStrategy": "CHALLENGE",
       "_type": {
-        "_id": "CastleLogNode",
-        "name": "Castle Log Node",
+        "_id": "CastleRiskNode",
+        "name": "Castle Risk Node",
         "collection": true
       },
       "_outcomes": [
@@ -218,8 +145,8 @@
         }
       ]
     },
-    "d6c6b753-0259-4445-83d5-b97aa3c0077f": {
-      "_id": "d6c6b753-0259-4445-83d5-b97aa3c0077f",
+    "b2c826e8-53a2-436a-b2f7-f06c42e8b665": {
+      "_id": "b2c826e8-53a2-436a-b2f7-f06c42e8b665",
       "_type": {
         "_id": "DataStoreDecisionNode",
         "name": "Data Store Decision",
@@ -235,15 +162,70 @@
           "displayName": "False"
         }
       ]
+    },
+    "b361ecf0-fae8-4ac7-822a-6e4b14c173f2": {
+      "_id": "b361ecf0-fae8-4ac7-822a-6e4b14c173f2",
+      "identityAttribute": "userName",
+      "_type": {
+        "_id": "IncrementLoginCountNode",
+        "name": "Increment Login Count",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "cca6083b-e9b6-42a3-aa7b-ce3e1bb5d390": {
+      "_id": "cca6083b-e9b6-42a3-aa7b-ce3e1bb5d390",
+      "event": "LOGIN",
+      "status": "ATTEMPTED",
+      "failOverStrategy": "CHALLENGE",
+      "mailAttribute": "mail",
+      "_type": {
+        "_id": "CastleFilterNode",
+        "name": "Castle Filter Node",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "outcome",
+          "displayName": "Outcome"
+        }
+      ]
+    },
+    "efffcbe3-4b84-4c58-86fd-aa491e730135": {
+      "_id": "efffcbe3-4b84-4c58-86fd-aa491e730135",
+      "_type": {
+        "_id": "CastleActionNode",
+        "name": "Castle Action Node",
+        "collection": true
+      },
+      "_outcomes": [
+        {
+          "id": "ALLOW",
+          "displayName": "Allow"
+        },
+        {
+          "id": "CHALLENGE",
+          "displayName": "Challenge"
+        },
+        {
+          "id": "DENY",
+          "displayName": "Deny"
+        }
+      ]
     }
   },
   "scripts": {},
   "emailTemplates": {},
   "tree": {
     "_id": "LoginWithCastle",
-    "entryNodeId": "af6e4bb3-d55a-4081-b519-70117be62a6f",
+    "entryNodeId": "738012b5-a06b-42e3-8414-a68c0544f76e",
     "nodes": {
-      "bee0de98-e913-4f84-bc0f-6d928e93b53f": {
+      "58393525-8f33-4afa-b5f4-ee04f7d4a610": {
         "x": 1154,
         "y": 220,
         "connections": {
@@ -252,79 +234,69 @@
         "nodeType": "CastleLogNode",
         "displayName": "Castle Log Node"
       },
-      "261a92e8-93bf-454f-9ef1-996246ecc8e8": {
-        "x": 1875,
-        "y": 137.5,
-        "connections": {
-          "true": "70e691a5-1e33-4ac3-a356-e7b6d60d92e0",
-          "false": "e301438c-0bd0-429c-ab0c-66126501069a"
-        },
-        "nodeType": "InnerTreeEvaluatorNode",
-        "displayName": "Inner Tree Evaluator"
-      },
-      "d6c6b753-0259-4445-83d5-b97aa3c0077f": {
+      "b2c826e8-53a2-436a-b2f7-f06c42e8b665": {
         "x": 917,
         "y": 137.5,
         "connections": {
-          "false": "bee0de98-e913-4f84-bc0f-6d928e93b53f",
-          "true": "0ea8170a-b37f-45a3-878c-08c67d2b0688"
+          "false": "58393525-8f33-4afa-b5f4-ee04f7d4a610",
+          "true": "81cc0208-5692-43a6-a7c0-3d46262257a4"
         },
         "nodeType": "DataStoreDecisionNode",
         "displayName": "Data Store Decision"
       },
-      "af6e4bb3-d55a-4081-b519-70117be62a6f": {
+      "738012b5-a06b-42e3-8414-a68c0544f76e": {
         "x": 210,
         "y": 83,
         "connections": {
-          "outcome": "06762d65-c4a6-4792-a5a0-49ba3d5180eb"
+          "outcome": "cca6083b-e9b6-42a3-aa7b-ce3e1bb5d390"
         },
         "nodeType": "PageNode",
         "displayName": "Page Node"
       },
-      "957a0d5b-a89e-469b-b608-1f0771bb029c": {
+      "b361ecf0-fae8-4ac7-822a-6e4b14c173f2": {
         "x": 1616,
         "y": 162.5,
         "connections": {
-          "outcome": "261a92e8-93bf-454f-9ef1-996246ecc8e8"
+          "outcome": "70e691a5-1e33-4ac3-a356-e7b6d60d92e0"
         },
         "nodeType": "IncrementLoginCountNode",
         "displayName": "Increment Login Count"
       },
-      "0ea8170a-b37f-45a3-878c-08c67d2b0688": {
+      "81cc0208-5692-43a6-a7c0-3d46262257a4": {
         "x": 1154,
         "y": 90,
         "connections": {
-          "outcome": "864300a1-6e89-4e7a-9949-8681807251e3"
+          "outcome": "efffcbe3-4b84-4c58-86fd-aa491e730135"
         },
         "nodeType": "CastleRiskNode",
         "displayName": "Castle Risk Node"
       },
-      "864300a1-6e89-4e7a-9949-8681807251e3": {
+      "efffcbe3-4b84-4c58-86fd-aa491e730135": {
         "x": 1384,
         "y": 125,
         "connections": {
-          "ALLOW": "957a0d5b-a89e-469b-b608-1f0771bb029c",
-          "CHALLENGE": "957a0d5b-a89e-469b-b608-1f0771bb029c",
+          "ALLOW": "b361ecf0-fae8-4ac7-822a-6e4b14c173f2",
+          "CHALLENGE": "b361ecf0-fae8-4ac7-822a-6e4b14c173f2",
           "DENY": "e301438c-0bd0-429c-ab0c-66126501069a"
         },
         "nodeType": "CastleActionNode",
         "displayName": "Castle Action Node"
       },
-      "06762d65-c4a6-4792-a5a0-49ba3d5180eb": {
+      "cca6083b-e9b6-42a3-aa7b-ce3e1bb5d390": {
         "x": 455,
         "y": 162.5,
         "connections": {
-          "outcome": "0ec6de49-6820-4068-bc72-2fb34fcef1fb"
+          "outcome": "5b4f3810-c051-43a7-b060-31ab6146c806"
         },
         "nodeType": "CastleFilterNode",
         "displayName": "Castle Filter Node"
       },
-      "0ec6de49-6820-4068-bc72-2fb34fcef1fb": {
+      "5b4f3810-c051-43a7-b060-31ab6146c806": {
         "x": 685,
         "y": 125,
         "connections": {
-          "ALLOW": "d6c6b753-0259-4445-83d5-b97aa3c0077f",
-          "CHALLENGE": "d6c6b753-0259-4445-83d5-b97aa3c0077f",
+          "ALLOW": "b2c826e8-53a2-436a-b2f7-f06c42e8b665",
+          "CHALLENGE": "b2c826e8-53a2-436a-b2f7-f06c42e8b665",
           "DENY": "e301438c-0bd0-429c-ab0c-66126501069a"
         },
         "nodeType": "CastleActionNode",
