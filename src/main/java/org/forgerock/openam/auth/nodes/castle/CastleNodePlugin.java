@@ -16,6 +16,7 @@
 
 package org.forgerock.openam.auth.nodes.castle;
 
+import com.google.common.collect.ImmutableList;
 import com.iplanet.sso.SSOException;
 import com.iplanet.sso.SSOToken;
 import com.sun.identity.security.AdminTokenAction;
@@ -24,10 +25,12 @@ import com.sun.identity.sm.ServiceManager;
 import org.forgerock.openam.auth.node.api.AbstractNodeAmPlugin;
 import org.forgerock.openam.auth.node.api.Node;
 import org.forgerock.openam.plugins.PluginException;
+import org.forgerock.openam.plugins.StartupType;
 
 import java.security.AccessController;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,6 +70,12 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
     static private String currentVersion = "1.0.0";
     private final Class serviceClass = CastleService.class;
 
+    private final List<Class<? extends Node>> nodeList = ImmutableList.of(
+            CastleProfilerNode.class, CastleLogNode.class, CastleRiskNode.class,
+            CastleFilterNode.class, CastleActionNode.class, CastleScoreNode.class,
+            CastleSignalNode.class, CastleApproveDeviceNode.class
+    );
+
     /**
      * Specify the Map of list of node classes that the plugin is providing. These will then be installed and
      * registered at the appropriate times in plugin lifecycle.
@@ -75,14 +84,7 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
      */
     @Override
     protected Map<String, Iterable<? extends Class<? extends Node>>> getNodesByVersion() {
-        return Collections.singletonMap(
-                CastleNodePlugin.currentVersion,
-                Arrays.asList(
-                        CastleProfilerNode.class, CastleLogNode.class, CastleRiskNode.class,
-                        CastleFilterNode.class, CastleActionNode.class, CastleScoreNode.class,
-                        CastleSignalNode.class, CastleApproveDeviceNode.class
-                )
-        );
+        return Collections.singletonMap(CastleNodePlugin.currentVersion, nodeList);
     }
 
     /**
@@ -104,9 +106,9 @@ public class CastleNodePlugin extends AbstractNodeAmPlugin {
      * No need to implement this unless your AuthNode has specific requirements on startup.
      */
     @Override
-    public void onStartup() throws PluginException {
+    public void onStartup(StartupType startupType) throws PluginException {
         pluginTools.startService(serviceClass);
-        super.onStartup();
+        super.onStartup(startupType);
     }
 
     /**
