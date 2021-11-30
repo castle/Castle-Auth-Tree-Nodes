@@ -67,7 +67,7 @@ import java.util.Map;
  */
 public class CastleNodePlugin extends AbstractNodeAmPlugin {
 
-    static private String currentVersion = "1.0.0";
+    static private String currentVersion = "1.1.0";
     private final Class serviceClass = CastleService.class;
 
     private final List<Class<? extends Node>> nodeList = ImmutableList.of(
